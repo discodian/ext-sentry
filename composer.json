@@ -1,0 +1,25 @@
+{
+    "name": "discodian/ext-sentry",
+    "description": "The Sentry extension for discodian",
+    "type": "discodian-extension",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Daniël Klabbers",
+            "email": "daniel@klabbers.email",
+            "homepage": "https://luceos.com"
+        }
+    ],
+    "require": {
+        "discodian/core": "*",
+        "sentry/sentry": "^1.8.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Discodian\\Sentry\\": "src/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
