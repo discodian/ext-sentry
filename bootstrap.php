@@ -14,8 +14,8 @@
 
 namespace Discodian\Sentry;
 
-use Discodian\Extend\Responses\Registry;
+use Illuminate\Contracts\Events\Dispatcher;
 
-return function (Registry $registry) {
-    $registry->add(Listeners\IssueSearch::class);
+return function (Dispatcher $events) {
+    $events->subscribe(Listeners\RegisterHandler::class);
 };
