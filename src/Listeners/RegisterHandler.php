@@ -17,6 +17,7 @@ namespace Discodian\Sentry\Listeners;
 use Discodian\Core\Events\Log\RegistersHandlers;
 use Illuminate\Contracts\Events\Dispatcher;
 use Monolog\Handler\RavenHandler;
+use Monolog\Logger;
 use Raven_Client;
 
 class RegisterHandler
@@ -31,11 +32,11 @@ class RegisterHandler
         if ($dsn = env('SENTRY_DSN')) {
             $client = new Raven_Client($dsn);
 
-            $handler = new RavenHandler($client);
+            $handler = new RavenHandler($client, env('SENTRY_LEVEL', Logger::ERROR));
 
             $handler->setFormatter($event->formatter);
 
-            $event->handlers[] = $handler;
+            array_unshift($event->handlers, $handler);
         }
     }
 }
