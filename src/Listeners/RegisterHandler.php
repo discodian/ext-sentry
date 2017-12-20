@@ -30,7 +30,18 @@ class RegisterHandler
     public function register(RegistersHandlers $event)
     {
         if ($dsn = env('SENTRY_DSN')) {
-            $client = new Raven_Client($dsn);
+            $options = [];
+
+            if ($release = env('SENTRY_RELEASE')) {
+                $options['release'] = $release;
+            }
+            if ($tags = env('SENTRY_TAGS')) {
+                $options['tags'] = explode(',', $tags);
+            }
+
+            $options['app_path'] = base_path();
+
+            $client = new Raven_Client($dsn, $options);
 
             $handler = new RavenHandler($client, env('SENTRY_LEVEL', Logger::ERROR));
 
